@@ -1,40 +1,47 @@
-const saveToCookie = document.getElementById('saveToCookie');
-const saveToLocalStorage = document.getElementById('saveToLocalStorage');
+const saveToCookie = document.getElementsByClassName('saveToCookie');
+const saveToLocalStorage = document.getElementsByClassName('saveToLocalStorage');
 const testMaxLength = document.getElementById('testMaxLength');
 
-saveToCookie.addEventListener('keydown', saveInputToCookie);
-saveToLocalStorage.addEventListener('keydown', saveInputToLocalStorage);
+[...saveToCookie].forEach(function () { this.addEventListener('keyup', saveInputToCookie) });
+[...saveToLocalStorage].forEach(function () { this.addEventListener('keyup', saveInputToLocalStorage); });
 window.addEventListener('load', loadDataFromStorage);
 testMaxLength.addEventListener('click', testMaxCookieLength);
 
 function saveInputToCookie(event) {
     console.log(event.code);
-    document.cookie = "saveToCookie=" + saveToCookie.value;
+    docCookies.setItem('cookiefield' + [...saveToCookie].indexOf(event.target), event.target.value);
 }
 
 function saveInputToLocalStorage() {
-    window.localStorage.setItem('saveToLocalStorage', saveToLocalStorage.value);
+    window.localStorage.setItem('saveToLocalStorage' + [...saveToLocalStorage].indexOf(event.target), event.target.value);
 }
 
 function loadDataFromStorage() {
+    // load cookies from storage
     console.log(document.cookie);
-    let regex = new RegExp('.*=');
-    saveToCookie.value = document.cookie.replace(regex, '');
-    saveToLocalStorage.value = window.localStorage.getItem('saveToLocalStorage');
+    //let regex = new RegExp('.*=');
+    [...saveToCookie].forEach(function (i) {
+        i.value = docCookies.getItem('cookiefield' + [...saveToCookie].indexOf(i));
+    });
+    // load local storage 
+    [...saveToLocalStorage].forEach(function (i) {
+        i.value = window.localStorage.getItem('saveToLocalStorage' + [...saveToLocalStorage].indexOf(i));
+    });
+
 }
 
-function testMaxCookieLength() {
-    let val = '';
-    saveToCookie.removeEventListener('keydown', saveInputToCookie);
-    for (let i = 0; i < 10000; i++) {
-        val += 'x';
-        saveToCookie.value = i;
-        document.cookie = "saveToCookie=" + val;
-        try {
-            document.cookie.length >= i;
+// function testMaxCookieLength() {
+//     let val = '';
+//     saveToCookie.removeEventListener('keyup', saveInputToCookie);
+//     for (let i = 0; i < 10000; i++) {
+//         val += 'x';
+//         saveToCookie.value = i;
+//         document.cookie = "saveToCookie=" + val;
+//         try {
+//             document.cookie.length >= i;
 
-        } catch (error) {
-            console.log('Storing cookie failed at this length: ' + i);
-        }
-    }
-}
+//         } catch (error) {
+//             console.log('Storing cookie failed at this length: ' + i);
+//         }
+//     }
+// }

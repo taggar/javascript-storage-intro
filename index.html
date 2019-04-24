@@ -12,24 +12,33 @@
     <h1>Javascript Storage Intro</h1>
 
     <fieldset>
-        <label for="saveToCookie">Data to be saved in a cookie</label>
-        <input type="text" name="saveToCookie" id="saveToCookie" placeholder="Input will be saved to a cookie"
+        <label for="saveToCookie">Input 1 to be saved in a cookie</label>
+        <input type="text" name="saveToCookie" class="saveToCookie" placeholder="Input will be saved to a cookie"
             size="100">
     </fieldset>
-
     <fieldset>
-        <label for="saveToLocalStorage">Data to be saved in local storage</label>
-        <input type="text" name="saveToLocalStorage" id="saveToLocalStorage"
+        <label for="saveToCookie">Input 2 to be saved in a cookie</label>
+        <input type="text" name="saveToCookie" class="saveToCookie" placeholder="Input will be saved to a cookie"
+            size="100">
+    </fieldset>
+    <fieldset>
+        <label for="saveToLocalStorage">Input 1 to be saved in local storage</label>
+        <input type="text" name="saveToLocalStorage" class="saveToLocalStorage"
             placeholder="Input will be saved to local storage" size="100">
     </fieldset>
-
-    <button type="submit" id="testMaxLength">Test max cookie length</button>
+    <fieldset>
+        <label for="saveToLocalStorage">Input 2 to be saved in local storage</label>
+        <input type="text" name="saveToLocalStorage" class="saveToLocalStorage"
+            placeholder="Input will be saved to local storage" size="100">
+    </fieldset>
+    <!--<button type="submit" id="testMaxLength">Test max cookie length</button>-->
 
     <h2>Findings:</h2>
 
     <ol>
         <li>Cookies only work when the page is being served, whereas local storage also works with file protocol</li>
     </ol>
+    <script src="cookies.js"></script>
     <script src="index.js"></script>
 </body>
 
