@@ -1,11 +1,13 @@
 const saveToCookie = document.getElementsByClassName('saveToCookie');
 const saveToLocalStorage = document.getElementsByClassName('saveToLocalStorage');
 const testMaxLength = document.getElementById('testMaxLength');
+const deleteButtons = document.querySelectorAll('button[type=button]');
 
 [...saveToCookie].forEach(function () { this.addEventListener('keyup', saveInputToCookie) });
 [...saveToLocalStorage].forEach(function () { this.addEventListener('keyup', saveInputToLocalStorage); });
+[...deleteButtons].forEach(function () { this.addEventListener('click', deleteStoredData); });
 window.addEventListener('load', loadDataFromStorage);
-testMaxLength.addEventListener('click', testMaxCookieLength);
+//testMaxLength.addEventListener('click', testMaxCookieLength);
 
 function saveInputToCookie(event) {
     console.log(event.code);
@@ -27,7 +29,17 @@ function loadDataFromStorage() {
     [...saveToLocalStorage].forEach(function (i) {
         i.value = window.localStorage.getItem('saveToLocalStorage' + [...saveToLocalStorage].indexOf(i));
     });
+}
 
+function deleteStoredData(event) {
+    let input = event.target.previousElementSibling;
+    if (input.className == 'saveToCookie') {
+        docCookies.removeItem('cookiefield' + [...saveToCookie].indexOf(input));
+        input.value = '';
+    }
+    else {
+        window.localStorage.removeItem('saveToLocalStorage' + [...saveToLocalStorage].indexOf(input));
+    }
 }
 
 // function testMaxCookieLength() {
